@@ -1,11 +1,13 @@
 const express = require("express")
 const http = require("http")
+const cors = require("cors")
 const port = "3000"
 
 const app = express();
 
 /* Middlewares */
 app.use(express.json())
+app.use(cors())
 
 app.get("/", (req, res) => {
 
@@ -15,4 +17,6 @@ app.get("/", (req, res) => {
 })
 
 const server = http.createServer(app);
-server.listen(port, () => { console.log("Server Working on Port" + port) })
+server.listen(port, () => {
+    console.log("Server Working on Port" + port)
+})
