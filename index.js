@@ -3,7 +3,7 @@ const http = require("http")
 const cors = require("cors")
 const port = "3000"
 const userRouter = require("./routes/Users")
-
+const taskRouter = require("./routes/Task")
 const app = express();
 
 /* Middlewares */
@@ -18,6 +18,8 @@ app.get("/", (req, res) => {
 })
 
 app.use(userRouter)
+
+app.use(taskRouter)
 
 /*app.get("/users", (req, res) => {
 
