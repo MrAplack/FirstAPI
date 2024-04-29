@@ -4,10 +4,10 @@ const { verifyToken } = require("../middlewares/verifyToken")
 const router = express.Router()
 
 
-router.get("/tasks", verifyToken, getTasksController)
-router.post("/task", verifyToken,postTaskController)
-router.put("/task/:id", verifyToken,putTaskController)
-router.delete("/task/:id",verifyToken, deleteTaskController)
+router.get("/tasks",  getTasksController)
+router.post("/task", postTaskController)
+router.put("/task/:id", putTaskController)
+router.delete("/task/:id", deleteTaskController)
 
 module.exports = router
 
