@@ -1,4 +1,4 @@
-const { getUsersServices, postUserService , putUserService, deleteUserService } = require("../services/Users")
+const { getUsersServices, postUserService , putUserService, deleteUserService, registerServices, loginServices } = require("../services/Users")
 
 const getUsersController = (req, res) => {
 
@@ -12,8 +12,9 @@ const getUsersController = (req, res) => {
 
 const postUserController = (req, res) => {
 
-    const serviceResponse = postUserService(body)
+    
     const body = req.body
+    const serviceResponse = postUserService(body)
 
     res.status(201).json(serviceResponse)
 
@@ -35,4 +36,28 @@ const deleteUserController = (req, res) =>{
 
 }
 
-module.exports = { getUsersController, postUserController , putUserController, deleteUserController }
+const loginController = async (req, res) => {
+
+    
+    const body = req.body
+    const serviceResponse = await loginServices(body)
+
+    res.status(201).json(serviceResponse)
+
+
+}
+
+const registerController = async (req, res) => {
+
+    
+    const body = req.body
+    const serviceResponse = await registerServices(body)
+
+    res.status(201).json(serviceResponse)
+
+
+}
+
+
+
+module.exports = { getUsersController, postUserController , putUserController, deleteUserController , loginController, registerController }

@@ -1,5 +1,5 @@
 const { initializeApp } = require("firebase/app");
-const { addDoc, collection, getFirestore, updateDoc, deleteDoc, doc, getDocs, query } = require("firebase/firestore/lite");
+const { addDoc, collection, getFirestore, updateDoc, deleteDoc, doc, getDocs, query, where } = require("firebase/firestore/lite");
 
 
 
@@ -17,12 +17,34 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app)
 
+
+const getByParam = async (nameCollection, param, valueParam) => {
+
+  try {
+    const ref = collection(db, nameCollection)
+    const q = query(ref, where(param, "==", valueParam));
+    const querySnapshot = await getDocs(q);
+    const result = querySnapshot.docs.map((doc) => {
+      return {
+        id: doc.id,
+        ...doc.data()
+      }
+    });
+    if (result.length > 0) return result[0]
+
+  } catch (error) {
+    console.log(error)
+  }
+
+
+}
+
 const getAll = async (nameCollection) => {
 
   const q = collection(db, nameCollection);
 
-    const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map((doc)=> {
+  const querySnapshot = await getDocs(q);
+  return querySnapshot.docs.map((doc) => {
     return {
       id: doc.id,
       ...doc.data()
@@ -67,5 +89,5 @@ const destroy = async (nameCollection, id) => {
 
 
 module.exports = {
-  db, create, update, destroy, getAll
+  db, create, update, destroy, getAll, getByParam
 }
